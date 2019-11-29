@@ -91,12 +91,12 @@ class Juego {
 }
 
 window.onload = () => {
-  var x1 = Math.round(Math.random() * (500 - 100) + 100);
-  var y1 = Math.round(Math.random() * (400 - 200) + 200);
-  var x2 = Math.round(Math.random() * (500 - 100) + 100);
-  var y2 = Math.round(Math.random() * (400 - 200) + 200);
+  // var x1 = Math.round(Math.random() * (500 - 100) + 100);
+  // var y1 = Math.round(Math.random() * (400 - 200) + 200);
+  // var x2 = Math.round(Math.random() * (500 - 100) + 100);
+  // var y2 = Math.round(Math.random() * (400 - 200) + 200);
 
-  var bloque1 = new Bloques(x1, y1, "black", 20, 20);
-  var bloque2 = new Bloques(x2, y2, "black", 20, 20);
+  var bloque1 = new Bloques(5, 50, "black", 40, 40);
+  var bloque2 = new Bloques(10, 100, "black", 40, 40);
   var juego = new Juego(500, 500, bloque1, bloque2);
 };
