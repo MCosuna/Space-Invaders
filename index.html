@@ -4,9 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    	svg{
+    		background-color: black;
+    	}
+    </style>
     <title>Space invaders</title>
 </head>
 <body>
-<script src="space.js" type="text/JavaScript"></script>
+	<script src="space.js" type="text/JavaScript"></script>
+	<script type="text/JavaScript">
+		function checkKey(e){ //Comprobar qué teclas son pulsadas por el jugador
+		      if(e.key == "a" || e.key == "A"){
+		        moverIzq = true;
+		        moverDch = false;
+		      }else if(e.key == "d" || e.key == "D"){
+		        moverDch = true;
+		        moverIzq = false;
+		      }
+		      if((e.key == " " || e.key == " ") && !isShooting){
+		      	isShooting = true;
+		      	let newBullet = player.pewPew();
+		      	newBullet.appendDisparo(contenedor);
+		      	playerBullet.push(newBullet);
+		      }
+		    }
+
+		function clearKeys(e){ //Si el jugador suelta la tecla, la nave deja de moverse
+		    if(e.key == "a" || e.key == "A"){
+		    	moverIzq = false;
+		    }else if(e.key == "d" || e.key == "D"){
+		    	moverDch = false;
+		    }
+		}
+
+		//Declaraciones de variables globales
+			//Jugador
+			var player;
+			//Booleans para el movimiento del jugador
+			var moverIzq = false; 
+			var moverDch = false;
+			//Boolean para el disparo del jugador
+			var isShooting = false;
+			var playerBullet = []; //Balas del jugador actualmente en escena
+			//Pantalla de juego
+			var contenedor;
+			//Intervalo de enfriamiento de disparo del jugador
+			var myTimeout;
+
+		window.onload = function(){
+		    contenedor = document.getElementById("contenedor"); //Detectamos el contenedor del juego
+		    player = new Nave(0, 670, 40, 20, 1, 8); //Creamos la nave del jugador
+		    player.appendNave(contenedor);
+
+		    //Añadimos listeners para detectar al jugador pulsar las teclas
+		    document.addEventListener("keydown", checkKey);
+		    document.addEventListener("keyup", clearKeys);
+
+		    var myInterval = setInterval(function(){
+			    if(moverIzq){ //Moverse a la izquierda
+			    	player.moverNave(-1);
+			    }else if(moverDch){ //Moverse a la derecha
+			    	player.moverNave(1);
+			    }
+			    if(playerBullet.length > 0){ //Mover todas las balas actuales del jugador
+			    	for(let i=0; i<playerBullet.length;i++){
+			    		playerBullet[i].moverDisparo();
+				    	if(playerBullet[i].ypos <= 1){ //Si la bala llega al límite superior de la pantalla, es eliminada
+				    		playerBullet[i].element.remove(); 
+				    		playerBullet.splice(i, 1);
+				    	}
+			    	}
+			    }
+			    if(isShooting){ //Si está disparando, crear un enfriamiento del disparo
+			    	if(!myTimeout){ //Si no hay enfriamiento actualmente, crea uno
+			    		myTimeout = setTimeout(function(){
+			    			isShooting = false;
+			    			myTimeout = null;
+			    		}, 500);
+			    	}
+			    	
+			    }
+		    }, 20)
+	    }
+	</script>
+	<svg id="contenedor" width="1515" height="702">
+
+	</svg>
 </body>
 </html>
