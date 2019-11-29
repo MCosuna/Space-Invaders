@@ -26,7 +26,7 @@
 		      if((e.key == " " || e.key == " ") && !isShooting){
 		      	isShooting = true;
 		      	let newBullet = player.pewPew();
-		      	newBullet.appendDisparo(contenedor);
+		      	newBullet.appendDisparo(juego.svg);
 		      	playerBullet.push(newBullet);
 		      }
 		    }
@@ -40,6 +40,8 @@
 		}
 
 		//Declaraciones de variables globales
+			//Juego
+			var juego;
 			//Jugador
 			var player;
 			//Booleans para el movimiento del jugador
@@ -53,19 +55,15 @@
 			//Intervalo de enfriamiento de disparo del jugador
 			var myTimeout;
 
-		window.onload = function(){
-		    contenedor = document.getElementById("contenedor"); //Detectamos el contenedor del juego
-		    player = new Nave(0, 670, 40, 20, 1, 8); //Creamos la nave del jugador
-		    player.appendNave(contenedor);
 
-		    //Variables que estaban en space.js y que he traído aquí para tener un window.onload unificado
-			    // var x1 = Math.round(Math.random() * (500 - 100) + 100);
-				// var y1 = Math.round(Math.random() * (400 - 200) + 200);
-				// var x2 = Math.round(Math.random() * (500 - 100) + 100);
-				// var y2 = Math.round(Math.random() * (400 - 200) + 200);
-			    var bloque1 = new Bloques(5, 50, "black", 40, 40);
-				var bloque2 = new Bloques(10, 100, "black", 40, 40);
-				var juego = new Juego(500, 500, bloque1, bloque2);
+		window.onload = function(){
+			//Variables que estaban en space.js y que he traído aquí para tener un window.onload unificado
+		    var bloque1 = new Bloques(5, 50, "black", 40, 40);
+			var bloque2 = new Bloques(10, 100, "black", 40, 40);
+			juego = new Juego(500, 500, bloque1, bloque2);
+
+		    player = new Nave(juego.ancho/2-21, juego.largo-20, 21, 10, 1, 8); //Creamos la nave del jugador
+		    player.appendNave(juego.svg);
 
 		    //Añadimos listeners para detectar al jugador pulsar las teclas
 		    document.addEventListener("keydown", checkKey);
@@ -98,8 +96,6 @@
 		    }, 20)
 	    }
 	</script>
-	<svg id="contenedor" width="1515" height="702">
-
-	</svg>
+	<div id="juego"></div>
 </body>
 </html>
