@@ -12,6 +12,7 @@
     <title>Space invaders</title>
 </head>
 <body>
+
 	<script src="space.js" type="text/JavaScript"></script>
 	<script type="text/JavaScript">
 		function checkKey(e){ //Comprobar qué teclas son pulsadas por el jugador
@@ -56,6 +57,15 @@
 		    contenedor = document.getElementById("contenedor"); //Detectamos el contenedor del juego
 		    player = new Nave(0, 670, 40, 20, 1, 8); //Creamos la nave del jugador
 		    player.appendNave(contenedor);
+
+		    //Variables que estaban en space.js y que he traído aquí para tener un window.onload unificado
+			    // var x1 = Math.round(Math.random() * (500 - 100) + 100);
+				// var y1 = Math.round(Math.random() * (400 - 200) + 200);
+				// var x2 = Math.round(Math.random() * (500 - 100) + 100);
+				// var y2 = Math.round(Math.random() * (400 - 200) + 200);
+			    var bloque1 = new Bloques(5, 50, "black", 40, 40);
+				var bloque2 = new Bloques(10, 100, "black", 40, 40);
+				var juego = new Juego(500, 500, bloque1, bloque2);
 
 		    //Añadimos listeners para detectar al jugador pulsar las teclas
 		    document.addEventListener("keydown", checkKey);

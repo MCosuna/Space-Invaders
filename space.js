@@ -74,3 +74,46 @@ class Disparo{ //Clase Disparo
     } 
   }
 }
+
+class Bloques {
+  constructor(x, y, color, ancho, alto) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.ancho = ancho;
+    this.alto = alto;
+    this.tag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    this.tag.setAttribute("x", this.x);
+    this.tag.setAttribute("y", this.y);
+    this.tag.setAttribute("width", this.ancho);
+    this.tag.setAttribute("height", this.alto);
+  }
+  dibujarBloque() {
+    this.tag.setAttribute("x", this.x);
+    this.tag.setAttribute("y", this.y);
+  }
+}
+
+//clase juego
+class Juego {
+  constructor(ancho, largo, ...bloques) {
+    this.ancho = ancho;
+    this.largo = largo;
+    this.bloques = bloques;
+    this.div = document.getElementById("juego");
+    this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    this.svg.style.border = "1px solid rgb(80, 75, 75)";
+    this.div.setAttribute("height", this.largo);
+    this.div.setAttribute("width", this.ancho);
+    this.svg.setAttribute("height", this.largo);
+    this.svg.setAttribute("width", this.ancho);
+    this.div.appendChild(this.svg);
+    for (this.bloque of this.bloques) {
+      this.svg.appendChild(this.bloque.tag);
+    }
+    this.generarJuego();
+  }
+  generarJuego() {
+    this.bloque.dibujarBloque();
+  }
+}
