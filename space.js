@@ -190,4 +190,5 @@ class Juego {
     this.bloque.dibujarBloque();
     // this.marciano.dibujarMarciano();
   }
+  
 }
