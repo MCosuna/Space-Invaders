@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style>
-    	svg{
-    		background-color: black;
-    	}
-    </style>
-    <title>Space invaders</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<style>
+		svg {
+			background-color: black;
+			display: block;
+			margin: auto;
+		}
+
+		#titulo {
+			font-family: "Homer Simpson UI";
+			color: purple;
+			text-align: center;
+
+		}
+		#parrafo {
+			font-family: "Homer Simpson UI";
+			color: white;
+			text-align: center;
+		}
+	</style>
+	<title>Space invaders</title>
 </head>
-<body>
+
+<body background="http://pm1.narvii.com/7140/0b5166228731d52c483463326363318c86934000r5-564-797_00.jpg">
 
 	<script src="space.js" type="text/JavaScript"></script>
+	<center>
+		<h1 id="titulo"> Space Invaders </h1>
+	</center>
+
 	<script type="text/JavaScript">
 		function checkKey(e){ //Comprobar qué teclas son pulsadas por el jugador
 		      if(e.key == "a" || e.key == "A"){
@@ -54,16 +75,32 @@
 			var contenedor;
 			//Intervalo de enfriamiento de disparo del jugador
 			var myTimeout;
+			//Aparición de marcianos
+			var marciano;
 
 
 		window.onload = function(){
 			//Variables que estaban en space.js y que he traído aquí para tener un window.onload unificado
-		    var bloque1 = new Bloques(5, 50, "black", 40, 40);
-			var bloque2 = new Bloques(10, 100, "black", 40, 40);
-			juego = new Juego(500, 500, bloque1, bloque2);
+		    var bloque1 = new Bloque(1, 50, "green", 40, 40, 3, -1);
+			var bloque2 = new Bloque(50, 50, "green", 40, 40, 3, 1);
+			var bloque3 = new Bloque(100, 50, "green", 40, 40, 3, 1);
+			var bloque4 = new Bloque(150, 50, "green", 40, 40, 3, 1);
+
+			// var marciano = new Marciano(50, 100, 20, 20, "red");
+			juego = new Juego(500, 500, bloque1, bloque2,bloque3,bloque4);
+			
 
 		    player = new Nave(juego.ancho/2-21, juego.largo-20, 21, 10, 1, 8); //Creamos la nave del jugador
-		    player.appendNave(juego.svg);
+			player.appendNave(juego.svg);
+			marciano = new Marciano(40, 350,50, 10, "white");//Añadimos el marciano
+			marciano2 = new Marciano(350, 350,50, 10, "white");//Añadimos el marciano
+			marciano3 = new Marciano(200, 350,50, 10, "white");//Añadimos el marciano
+
+
+			marciano.appendMarciano(juego.svg);//Lo agregamos
+			marciano2.appendMarciano(juego.svg);// agregamos otro
+			marciano3.appendMarciano(juego.svg);// agregamos otro
+
 
 		    //Añadimos listeners para detectar al jugador pulsar las teclas
 		    document.addEventListener("keydown", checkKey);
@@ -92,10 +129,22 @@
 			    		}, 500);
 			    	}
 			    	
-			    }
+				}
+				juego.bloques.forEach(bloque => {
+					bloque.moverBloque();//movemos el bloque 
+				});
 		    }, 20)
 	    }
 	</script>
 	<div id="juego"></div>
+	<h2 id="titulo">Instrucciones:</h2>
+	<h3 id="parrafo">
+		Para mover hacia la izquierda : [ A/a ]<br>
+		Para mover hacia la Derecha : [ D/d ]<br>
+		Para disparar: [ espacio ]
+
+
+	</h3>
 </body>
+
 </html>
